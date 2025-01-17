@@ -1,0 +1,21 @@
+.text {
+  font-size: 24px;
+  font-weight: 500;
+}
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  border: 2px solid dimgray;
+  border-radius: 8px;
+  /* max-width: 392px; */
+}
+.button {
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 3px 12px;
+  height: 38px;
+}

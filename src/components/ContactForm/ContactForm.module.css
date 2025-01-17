@@ -1,0 +1,39 @@
+.form {
+  width: 392px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+  border: 2px solid dimgray;
+  border-radius: 8px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+.label {
+  font-size: 24px;
+  font-weight: 500;
+}
+.input {
+  font-size: 24px;
+  font-weight: 400;
+  padding: 12px 6px;
+  border-radius: 8px;
+}
+.button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12px;
+  width: 186px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 500;
+  padding: 3px 12px;
+  height: 38px;
+}
+.error {
+  color: brown;
+}
+.div {
+  display: flex;
+  flex-direction: column;
+}
