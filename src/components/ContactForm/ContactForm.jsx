@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsOps';
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Too short!')
@@ -29,7 +29,6 @@ const ContactForm = () => {
   const handleSubmit = (values, actions) => {
     dispatch(
       addContact({
-        id: nanoid(4),
         ...values,
       })
     );
