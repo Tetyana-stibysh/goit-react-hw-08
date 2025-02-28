@@ -1,5 +1,12 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { addContact, deleteContact, fetchContacts } from './contactsOps';
+import {
+  addContact,
+  deleteContact,
+  editContact,
+  fetchContacts,
+} from './operations';
+import { logOut } from '../auth/operations';
+import { number } from 'yup';
 const handlePending = state => {
   state.isLoading = true;
 };
@@ -7,14 +14,15 @@ const handleRejected = (state, action) => {
   state.isLoading = false;
   state.error = action.payload;
 };
+const initialState = {
+  items: [],
+  isLoading: false,
+  error: null,
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, handlePending)
@@ -37,21 +45,17 @@ const contactsSlice = createSlice({
         state.error = null;
         state.items = state.items.filter(item => item.id !== payload.id);
       })
-      .addCase(deleteContact.rejected, handleRejected);
+      .addCase(deleteContact.rejected, handleRejected)
+      .addCase(editContact.pending, handlePending)
+      .addCase(editContact.rejected, handleRejected)
+      .addCase(editContact.fulfilled, (state, { payload }) => {
+        const itemIndex = state.items.findIndex(item => item.id === payload.id);
+        if (itemIndex !== -1) {
+          state.items[itemIndex] = payload;
+        }
+      })
+      .addCase(logOut.fulfilled, () => initialState);
   },
 });
 
 export default contactsSlice.reducer;
-
-export const selectIsLoading = state => state.contacts.isLoading;
-export const selectError = state => state.contacts.error;
-export const selectContacts = state => state.contacts.items;
-export const selectFilter = state => state.filters.name;
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectFilter],
-  (contacts, filter) => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }
-);

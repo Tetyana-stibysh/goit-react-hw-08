@@ -1,0 +1,12 @@
+.div {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+}
+.btn {
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(54, 111, 93);
+}

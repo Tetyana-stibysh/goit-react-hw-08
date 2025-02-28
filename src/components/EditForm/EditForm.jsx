@@ -1,10 +1,8 @@
 import { Formik, Form, Field } from 'formik';
 import { useId } from 'react';
-import s from './ContactForm.module.css';
+import s from './EditForm.module.css';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
-import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contacts/operations';
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, 'Too short!')
@@ -17,37 +15,19 @@ const FeedbackSchema = Yup.object().shape({
     )
     .required('Required'),
 });
-console.log(FeedbackSchema);
 
-const initialValues = {
-  name: '',
-  number: '',
-};
-const ContactForm = () => {
-  const dispatch = useDispatch();
-
+const EditForm = ({ initialValues, handleSubmit }) => {
   const contactId = useId();
   const phonId = useId();
-  const handleSubmit = (values, actions) => {
-    dispatch(
-      addContact({
-        ...values,
-      })
-    );
-
-    actions.resetForm();
-  };
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={FeedbackSchema}
     >
       <Form className={s.form}>
-        <button type="submit" className={s.button}>
-          Add contact
-        </button>
         <div className={s.div}>
           <label htmlFor={contactId} className={s.label}>
             Name
@@ -69,13 +49,14 @@ const ContactForm = () => {
             name="number"
             className={s.input}
             id={phonId}
-            placeholder="xxx-xxx-xxxx"
-            maxLength={12}
           ></Field>
           <ErrorMessage className={s.error} name="number" component="span" />
         </div>
+        <button type="submit" className={s.button}>
+          Edit
+        </button>
       </Form>
     </Formik>
   );
 };
-export default ContactForm;
+export default EditForm;

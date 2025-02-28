@@ -2,6 +2,8 @@ body {
   font-family: sans-serif;
   line-height: 1.5;
   padding: 36px;
+  background-image: url(./assets/lauren-mancke.jpg);
+  color: rgb(61, 61, 61);
 }
 
 h1,
@@ -24,4 +26,10 @@ ol {
 img {
   display: block;
   max-width: 100%;
+}
+button {
+  cursor: pointer;
+}
+a {
+  cursor: pointer;
 }
